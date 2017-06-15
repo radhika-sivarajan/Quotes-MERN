@@ -11,9 +11,9 @@ import SaveQuote from "../components/SaveQuote";
 const routes = (
   <Router history={browserHistory}>
     <Route path="/" component={Main}>
-      <Route path="saved-quotes" component={SavedQuotes} />
       <Route path="save-quote" component={SaveQuote} />
-      <IndexRoute component={SavedQuotes} />
+      <Route path="saved-quotes" component={SavedQuotes} />
+      <IndexRoute component={SaveQuote} />
     </Route>
   </Router>
 );
