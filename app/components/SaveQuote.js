@@ -1,5 +1,6 @@
 var React = require("react");
 var helpers = require("../utils/API.js");
+var NotificationSystem = require('react-notification-system');
 
 var SaveQuote = React.createClass({
     getInitialState: function () {
@@ -7,10 +8,12 @@ var SaveQuote = React.createClass({
             savedQuotes: []
         }
     },
+    _notificationSystem: null,
     componentDidMount: function () {
         helpers.default.getQuotes().then(function (quotesData) {
             this.setState({ savedQuotes: quotesData.data });
         }.bind(this));
+        this._notificationSystem = this.refs.notificationSystem;
     },
     handleChange: function (event) {
         var newState = {};
@@ -24,6 +27,10 @@ var SaveQuote = React.createClass({
                 this.setState({ savedQuotes: quotesData.data });
             });
         });
+        this._notificationSystem.addNotification({
+            message: 'Quote added to the database',
+            level: 'success'
+        });
         return false;
     },
     handleDelete: function (quotes, event) {
@@ -33,6 +40,10 @@ var SaveQuote = React.createClass({
                 this.setState({ savedQuotes: quotesData.data });
             });
         });
+        this._notificationSystem.addNotification({
+            message: 'Quote deleted',
+            level: 'error'
+        });
     },
     handleFavorite: function (quotes, event) {
         event.preventDefault();
@@ -41,6 +52,17 @@ var SaveQuote = React.createClass({
                 this.setState({ savedQuotes: quotesData.data });
             });
         });
+        if (quotes.favorited) {
+            this._notificationSystem.addNotification({
+                message: 'Quote favorited',
+                level: 'info'
+            });
+        } else {
+            this._notificationSystem.addNotification({
+                message: 'Quote unfavorited',
+                level: 'warning'
+            });
+        }
     },
     renderQuotes: function () {
         return this.state.savedQuotes.map(function (quotes, index) {
@@ -66,6 +88,7 @@ var SaveQuote = React.createClass({
     renderForm: function () {
         return (
             <div className="row">
+                <NotificationSystem ref="notificationSystem" />
                 <div className="col-md-6 col-md-offset-3 quote-form">
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">

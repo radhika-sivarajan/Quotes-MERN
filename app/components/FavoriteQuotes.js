@@ -1,16 +1,19 @@
 var React = require("react");
 var helpers = require("../utils/API.js");
+var NotificationSystem = require('react-notification-system');
 
 var FavoriteQuotes = React.createClass({
     getInitialState: function () {
         return {
             allQuotes: []
         }
-    },
+    }, 
+    _notificationSystem: null,
     componentDidMount: function () {
         helpers.default.getQuotes().then(function (quotesData) {
             this.setState({ allQuotes: quotesData.data });
-        }.bind(this));
+        }.bind(this)); 
+        this._notificationSystem = this.refs.notificationSystem;
     },
     handleDelete: function (quotes, event) {
         event.preventDefault();
@@ -18,6 +21,10 @@ var FavoriteQuotes = React.createClass({
             helpers.default.getQuotes().then((quotesData) => {
                 this.setState({ allQuotes: quotesData.data });
             });
+        });
+        this._notificationSystem.addNotification({
+            message: 'Quote deleted',
+            level: 'error'
         });
     },
     handleFavorite: function (quotes, event) {
@@ -27,6 +34,12 @@ var FavoriteQuotes = React.createClass({
                 this.setState({ allQuotes: quotesData.data });
             });
         });
+        if (!quotes.favorited) {
+            this._notificationSystem.addNotification({
+                message: 'Quote unfavorited',
+                level: 'warning'
+            });
+        }
     },
     renderFavoriteQuotes: function () {
         return this.state.allQuotes.map(function (quotes, index) {
@@ -44,6 +57,7 @@ var FavoriteQuotes = React.createClass({
     render: function () {
         return (
             <div className="row">
+                <NotificationSystem ref="notificationSystem" />
                 <div className="col-md-12 clearfix quote-section">
                     <ul className="clearfix" id="quote-list">
                         {this.renderFavoriteQuotes()}
