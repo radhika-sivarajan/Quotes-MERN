@@ -27,6 +27,8 @@ var SaveQuote = React.createClass({
                 this.setState({ savedQuotes: quotesData.data });
             });
         });
+        // Clear input field after submit
+        event.target.newQuote.value = "";
         this._notificationSystem.addNotification({
             message: 'Quote added to the database',
             level: 'success',

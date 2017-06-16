@@ -9,7 +9,7 @@
 #navbar{
     border-right: 1px solid black;
     border-left: 1px solid black;
-    min-height: 80px;
+    min-height: 100px;
 }
 #navbar .container-fluid{
     margin-top: 20px;
@@ -48,6 +48,7 @@
     margin: 10px;
     padding: 10px;
     max-width: 300px;
+    background-color: #fff6f8;
 }
 
 #quote-list .glyphicon-trash {
@@ -55,12 +56,12 @@
 }
 
 #quote-list .glyphicon-star {
-    filter: drop-shadow(0px 0px 1px #222);
+    filter: drop-shadow(0px 0px 0px #222);
     font-size: 115%;
 }
 
 #quote-list .yellow {
-    color: #f7f308;
+    color: #fdf905;
 }
 
 div .footer {
