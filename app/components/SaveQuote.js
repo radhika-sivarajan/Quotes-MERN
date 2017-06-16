@@ -29,7 +29,8 @@ var SaveQuote = React.createClass({
         });
         this._notificationSystem.addNotification({
             message: 'Quote added to the database',
-            level: 'success'
+            level: 'success',
+            position: 'tl'
         });
         return false;
     },
@@ -42,7 +43,8 @@ var SaveQuote = React.createClass({
         });
         this._notificationSystem.addNotification({
             message: 'Quote deleted',
-            level: 'error'
+            level: 'error',
+            position: 'tl'
         });
     },
     handleFavorite: function (quotes, event) {
@@ -55,12 +57,14 @@ var SaveQuote = React.createClass({
         if (quotes.favorited) {
             this._notificationSystem.addNotification({
                 message: 'Quote favorited',
-                level: 'info'
+                level: 'info',
+                position: 'tl'
             });
         } else {
             this._notificationSystem.addNotification({
                 message: 'Quote unfavorited',
-                level: 'warning'
+                level: 'warning',
+                position: 'tl'
             });
         }
     },
@@ -87,18 +91,22 @@ var SaveQuote = React.createClass({
     },
     renderForm: function () {
         return (
-            <div className="row">
+            <div className="row quotes-section">
                 <NotificationSystem ref="notificationSystem" />
                 <div className="col-md-6 col-md-offset-3 quote-form">
+                    <h4 className="text-center">Add a quote</h4>
+                    <div className="col-md-12 divider-image"></div>
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
-                            <label htmlFor="newQuote">Add a quote</label>
-                            <input type="textarea" className="form-control" id="newQuote" onChange={this.handleChange} required />
+                            <input type="textarea" placeholder="Enter quote here" className="form-control" id="newQuote" onChange={this.handleChange} required />
                         </div>
                         <button type="submit" className="btn btn-default">Submit</button>
                     </form>
                 </div>
                 <div className="col-md-12 clearfix quote-section">
+                    <hr />
+                    <h4 className="text-center">Saved quotes</h4>
+                    <div className="col-md-12 divider-image"></div>
                     <ul className="clearfix" id="quote-list">
                         {this.renderQuotes()}
                     </ul>

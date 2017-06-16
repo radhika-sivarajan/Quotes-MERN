@@ -7,12 +7,12 @@ var FavoriteQuotes = React.createClass({
         return {
             allQuotes: []
         }
-    }, 
+    },
     _notificationSystem: null,
     componentDidMount: function () {
         helpers.default.getQuotes().then(function (quotesData) {
             this.setState({ allQuotes: quotesData.data });
-        }.bind(this)); 
+        }.bind(this));
         this._notificationSystem = this.refs.notificationSystem;
     },
     handleDelete: function (quotes, event) {
@@ -24,7 +24,8 @@ var FavoriteQuotes = React.createClass({
         });
         this._notificationSystem.addNotification({
             message: 'Quote deleted',
-            level: 'error'
+            level: 'error',
+            position: 'tl'
         });
     },
     handleFavorite: function (quotes, event) {
@@ -37,7 +38,8 @@ var FavoriteQuotes = React.createClass({
         if (!quotes.favorited) {
             this._notificationSystem.addNotification({
                 message: 'Quote unfavorited',
-                level: 'warning'
+                level: 'warning',
+                position: 'tl'
             });
         }
     },
@@ -56,9 +58,11 @@ var FavoriteQuotes = React.createClass({
     },
     render: function () {
         return (
-            <div className="row">
+            <div className="row quotes-section">
                 <NotificationSystem ref="notificationSystem" />
                 <div className="col-md-12 clearfix quote-section">
+                    <h4 className="text-center">Favorite quotes</h4>
+                    <div className="col-md-12 divider-image"></div>
                     <ul className="clearfix" id="quote-list">
                         {this.renderFavoriteQuotes()}
                     </ul>
