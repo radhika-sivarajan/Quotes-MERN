@@ -2,7 +2,7 @@ import React from "react";
 import { Route, IndexRoute, Router, browserHistory } from "react-router";
 
 import Main from "../components/Main";
-import SavedQuotes from "../components/SavedQuotes";
+import FavoriteQuotes from "../components/FavoriteQuotes";
 import SaveQuote from "../components/SaveQuote";
 
 // Using just one route for now
@@ -12,7 +12,7 @@ const routes = (
   <Router history={browserHistory}>
     <Route path="/" component={Main}>
       <Route path="save-quote" component={SaveQuote} />
-      <Route path="saved-quotes" component={SavedQuotes} />
+      <Route path="saved-quotes" component={FavoriteQuotes} />
       <IndexRoute component={SaveQuote} />
     </Route>
   </Router>
