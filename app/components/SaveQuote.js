@@ -1,12 +1,16 @@
 var React = require("react");
 var helpers = require("../utils/API.js");
-var newArray = [];
 
 var SaveQuote = React.createClass({
     getInitialState: function () {
         return {
-            renderQuotes: []
+            savedQuotes: []
         }
+    },
+    componentDidMount: function () {
+        helpers.default.getQuotes().then(function (quotesData) {
+            this.setState({ savedQuotes: quotesData.data });
+        }.bind(this));
     },
     handleChange: function (event) {
         var newState = {};
@@ -15,18 +19,28 @@ var SaveQuote = React.createClass({
     },
     handleSubmit: function (event) {
         event.preventDefault();
-        newArray.push(this.state.newQuote);
-        this.setState({ renderQuotes: newArray });
-        this.renderNewQuotes();
+        helpers.default.saveQuote(this.state.newQuote).then(() => {
+            helpers.default.getQuotes().then((quotesData) => {
+                this.setState({ savedQuotes: quotesData.data });
+            });
+        });
         return false;
     },
-    renderNewQuotes: function () {
-        return this.state.renderQuotes.map(function (quotes, index) {
+    handleDelete: function (quotes, event) {
+        event.preventDefault();
+        helpers.default.deleteQuote(quotes._id).then(() => {
+            helpers.default.getQuotes().then((quotesData) => {
+                this.setState({ savedQuotes: quotesData.data });
+            });
+        });
+    },
+    renderQuotes: function () {
+        return this.state.savedQuotes.map(function (quotes, index) {
             return (
                 <li className="list-group-item" key={index}>
                     <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-trash pull-right"></span>
-                    <br/>{quotes} 
+                    <span className="glyphicon glyphicon-trash pull-right" onClick={this.handleDelete.bind(this, quotes)}></span>
+                    <br />{quotes.text}
                 </li>
             );
         }.bind(this));
@@ -45,7 +59,7 @@ var SaveQuote = React.createClass({
                 </div>
                 <div className="col-md-12 quote-section">
                     <ul id="quote-list">
-                        {this.renderNewQuotes()}
+                        {this.renderQuotes()}
                     </ul>
                 </div>
             </div>
