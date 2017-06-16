@@ -30,7 +30,7 @@ var FavoriteQuotes = React.createClass({
             <div className="row">
                 <div className="col-md-12 quote-section">
                     <ul id="quote-list">
-                        {this.renderFavoriteQuotes();}
+                        {this.renderFavoriteQuotes()}
                     </ul>
                 </div>
             </div>
