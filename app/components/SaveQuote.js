@@ -34,15 +34,33 @@ var SaveQuote = React.createClass({
             });
         });
     },
+    handleFavorite: function (quotes, event) {
+        event.preventDefault();
+        helpers.default.favoriteQuote(quotes).then(() => {
+            helpers.default.getQuotes().then((quotesData) => {
+                this.setState({ savedQuotes: quotesData.data });
+            });
+        });
+    },
     renderQuotes: function () {
         return this.state.savedQuotes.map(function (quotes, index) {
-            return (
-                <li className="list-group-item" key={index}>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-trash pull-right" onClick={this.handleDelete.bind(this, quotes)}></span>
-                    <br />{quotes.text}
-                </li>
-            );
+            if (quotes.favorited) {
+                return (
+                    <li className="list-group-item" key={index}>
+                        <span className="glyphicon glyphicon-star yellow" onClick={this.handleFavorite.bind(this, quotes)}></span>
+                        <span className="glyphicon glyphicon-trash pull-right" onClick={this.handleDelete.bind(this, quotes)}></span>
+                        <br />{quotes.text}
+                    </li>
+                );
+            } else {
+                return (
+                    <li className="list-group-item" key={index}>
+                        <span className="glyphicon glyphicon-star" onClick={this.handleFavorite.bind(this, quotes)}></span>
+                        <span className="glyphicon glyphicon-trash pull-right" onClick={this.handleDelete.bind(this, quotes)}></span>
+                        <br />{quotes.text}
+                    </li>
+                );
+            }
         }.bind(this));
     },
     renderForm: function () {

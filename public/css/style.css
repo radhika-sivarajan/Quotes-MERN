@@ -12,6 +12,7 @@
     float: left;
     margin: 10px;
     padding: 10px;
+    max-width: 300px;
 }
 
 #quote-list .glyphicon-trash{
@@ -20,8 +21,11 @@
 
 #quote-list .glyphicon-star{
    filter: drop-shadow(0px 0px 1px #222);
-   font-size: 110%;
+   font-size: 115%;
    color: white;
+}
+#quote-list .yellow{
+    color: #f7f308;
 }
 
 div .footer {

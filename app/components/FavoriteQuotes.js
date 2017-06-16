@@ -12,13 +12,29 @@ var FavoriteQuotes = React.createClass({
             this.setState({ allQuotes: quotesData.data });
         }.bind(this));
     },
+    handleDelete: function (quotes, event) {
+        event.preventDefault();
+        helpers.default.deleteQuote(quotes._id).then(() => {
+            helpers.default.getQuotes().then((quotesData) => {
+                this.setState({ allQuotes: quotesData.data });
+            });
+        });
+    },
+    handleFavorite: function (quotes, event) {
+        event.preventDefault();
+        helpers.default.favoriteQuote(quotes).then(() => {
+            helpers.default.getQuotes().then((quotesData) => {
+                this.setState({ allQuotes: quotesData.data });
+            });
+        });
+    },
     renderFavoriteQuotes: function () {
         return this.state.allQuotes.map(function (quotes, index) {
             if (quotes.favorited) {
                 return (
                     <li className="list-group-item" key={index}>
-                        <span className="glyphicon glyphicon-star"></span>
-                        <span className="glyphicon glyphicon-trash pull-right"></span>
+                        <span className="glyphicon glyphicon-star yellow" onClick={this.handleFavorite.bind(this, quotes)}></span>
+                        <span className="glyphicon glyphicon-trash pull-right" onClick={this.handleDelete.bind(this, quotes)}></span>
                         <br />{quotes.text}
                     </li>
                 );
