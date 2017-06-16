@@ -57,8 +57,8 @@ var SaveQuote = React.createClass({
                         <button type="submit" className="btn btn-default">Submit</button>
                     </form>
                 </div>
-                <div className="col-md-12 quote-section">
-                    <ul id="quote-list">
+                <div className="col-md-12 clearfix quote-section">
+                    <ul className="clearfix" id="quote-list">
                         {this.renderQuotes()}
                     </ul>
                 </div>

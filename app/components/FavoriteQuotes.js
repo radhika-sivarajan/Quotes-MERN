@@ -28,8 +28,8 @@ var FavoriteQuotes = React.createClass({
     render: function () {
         return (
             <div className="row">
-                <div className="col-md-12 quote-section">
-                    <ul id="quote-list">
+                <div className="col-md-12 clearfix quote-section">
+                    <ul className="clearfix" id="quote-list">
                         {this.renderFavoriteQuotes()}
                     </ul>
                 </div>
