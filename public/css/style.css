@@ -1,1 +1,22 @@
-/* Styles go here */
+.quote-form,
+.quote-section {
+    padding: 20px;
+}
+
+#quote-list ul {
+    list-style-type: none;
+    list-style-image: none;
+}
+
+#quote-list li {
+    float: left;
+    margin: 10px;
+    padding: 10px;
+}
+
+div .footer {
+    background-color: #474a50;
+    border-top: 4px solid #777;
+    padding: 20px;
+    color: white;
+}

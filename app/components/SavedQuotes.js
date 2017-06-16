@@ -3,9 +3,9 @@ var helpers = require("../utils/API.js");
 
 var SavedQuotes = React.createClass({
     componentDidMount: function () {
-        helpers.getQuotes().then(function (dbQuotes) {
-              console.log(dbQuotes);
-        }.bind(this));
+        // helpers.getQuotes().then( (dbQuotes) => {
+        //       console.log(dbQuotes);
+        // }.bind(this));
     },
     render: function () {
         return (
