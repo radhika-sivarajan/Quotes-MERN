@@ -1,4 +1,4 @@
-# Quotes-MERN
+# Quotes (MERN)
 
  This application allows us to create and save quotes which are saved to a mongo database. We can from there toggle a quotes "favorite" status by click on the star, or delete a quote entirely by click on the trashcan icon.
 
